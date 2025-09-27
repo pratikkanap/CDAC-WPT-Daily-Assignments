@@ -1,0 +1,33 @@
+.App {
+  text-align: center;
+}
+
+.Para{
+  text-align: center;
+  height: 300px;
+  width: 91rem;
+  background-color: black;
+  color: aliceblue;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 20px;
+  font-size: larger;
+}
+.t1{
+  height: 30px;
+  width: 260px;
+}
+.t2{
+   height: 35px;
+  width: 140px;
+}
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
