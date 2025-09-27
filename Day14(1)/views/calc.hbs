@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calculator</title>
+</head>
+<body>
+  <h1>Enter Two Numbers</h1>
+  <form method="POST" action="/calc">
+    <input type="number" name="num1" required placeholder="Number 1" value="{{num1}}">
+    <input type="number" name="num2" required placeholder="Number 2" value="{{num2}}">
+    <button type="submit">Calculate</button>
+  </form>
+
+  {{#if result}}
+    <h2>Result: {{result}}</h2>
+  {{/if}}
+</body>
+</html>
