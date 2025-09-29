@@ -1,0 +1,17 @@
+.App {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+ 
+  justify-content: center;
+  background-color: black;
+  color: aliceblue;
+}
+.btn{
+  height: 40px;
+  width: 180px;
+  cursor: pointer;
+  border-radius: .6rem;
+}
+
