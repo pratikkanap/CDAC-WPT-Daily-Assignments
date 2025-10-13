@@ -1,0 +1,484 @@
+//Home Page Using Routes
+
+import React from 'react'
+import { BrowserRouter as  Router,Routes, Route,Link } from "react-router-dom";
+
+import Home from './Home'
+import AboutUs from './AboutUs'
+import Contact from './Contact'
+function App2() {
+  return (
+    <div>
+        <Router>
+
+        <nav>
+            <Link to="/home">Home</Link>
+            <Link to="/about">About</Link>
+            <Link to="/contact">Contact</Link>
+
+        </nav>
+        <Routes>
+            <Route path="/home" element={<Home/>}>Home</Route>
+            <Route path="contact" element={<Contact/>}>Contact</Route>
+            <Route path="/about" element={<AboutUs/>}>About us</Route>
+
+        </Routes>
+        </Router>
+    </div>
+  )
+}
+
+export default App2
+
+----------------------------------
+import React from 'react'
+
+function Home() {
+  return (
+    <div>
+        <h1>Home Page</h1>
+        <p>Welcome to the Home Page!</p>
+    </div>
+  )
+}
+
+export default Home
+
+2--------------------------------------------
+
+//Upper Lower 
+import React,{useState} from 'react'
+function LowerUpper() {
+    const[text,setText] = useState("");
+    const[result,setResult] = useState("");
+    const AlphaCase = (event) =>{
+        setText(event.target.value);
+    }
+
+    const uppercase = () =>{
+        setResult(text.toUpperCase());
+    }
+
+    const lowercase = () =>{
+        setResult(text.toLowerCase());
+    }
+  return (
+    <div>
+        <h1>Uppercase and Lowercase</h1>
+        <input type="text" value={text} onChange={AlphaCase}></input>
+        <button onClick={uppercase}>Upper</button>
+        <button onClick={lowercase}>lower</button>
+        <h1>{result}</h1>
+
+    </div>
+  )
+}
+
+export default LowerUpper
+
+3------------------------------------
+//Random Password
+
+import React from 'react'
+import {useState} from 'react'
+function RandomPassword() {
+   const [length, setLength] = useState(8);
+  const [password, setPassword] = useState("");
+
+  function generatePassword() {
+    const chars = "qwertyuiopasdfghjklzxcvbnm" +
+                  "QWERTYUIOPASDFGHJKLZXCVBNM" +
+                  "1234567890!@#$%^&*()";
+    let pass = "";
+    for (let i = 0; i < length; i++) {
+      pass += chars[Math.floor(Math.random() * chars.length)];
+    }
+    setPassword(pass);
+  }
+
+  return (
+    <div>
+      <h1>Random Password Generator</h1>
+
+      <label>Length: </label>
+      <input 
+        type="number" 
+        value={length} 
+        onChange={(e) => setLength(Number(e.target.value))} 
+        min="4" 
+        max="20"
+      />
+
+      <button onClick={generatePassword}>Generate Password</button>
+
+      <p>Password: {password}</p>
+    </div>
+  );
+}
+
+export default RandomPassword
+
+4. ---------------------------------
+
+//Upper Lower using radio
+
+import React, { useState } from "react";
+
+function UpLowCase() {
+  const [text, setText] = useState("");
+  const [caseType, setCaseType] = useState("");
+
+  // Function to convert text based on selected case
+  const getOutput = () => {
+    if (caseType === "uppercase") {
+      return text.toUpperCase();
+    } else if (caseType === "lowercase") {
+      return text.toLowerCase();
+    } else if (caseType === "titlecase") {
+      // Simple title case using regex
+      return text.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
+    }
+    return text;
+  };
+
+  return (
+    <div >
+      <h2>Text Case Converter</h2>
+
+      <input
+        type="text"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        placeholder="Enter text here"
+        
+      />
+
+      <div >
+        <label>
+          <input
+            type="radio"
+            name="case"
+            value="uppercase"
+            checked={caseType === "uppercase"}
+            onChange={(e) => setCaseType(e.target.value)}
+          />
+          Uppercase
+        </label>
+        <br />
+        <label>
+          <input
+            type="radio"
+            name="case"
+            value="lowercase"
+            checked={caseType === "lowercase"}
+            onChange={(e) => setCaseType(e.target.value)}
+          />
+          Lowercase
+        </label>
+        <br />
+        <label>
+          <input
+            type="radio"
+            name="case"
+            value="titlecase"
+            checked={caseType === "titlecase"}
+            onChange={(e) => setCaseType(e.target.value)}
+          />
+          Title Case
+        </label>
+      </div>
+
+      <h3>Output:</h3>
+      <p >{getOutput()}</p>
+    </div>
+  );
+}
+
+export default UpLowCase;
+
+5. -------------------------
+
+//Use Effect
+
+import React, { useState, useEffect } from "react";
+
+function CounterWithEffect() {
+  const [count, setCount] = useState(0);
+  const [history, setHistory] = useState([]);
+
+  // Function to increase count
+  const increaseCount = () => {
+    setCount(count + 1);
+  };
+
+  // Function to decrease count
+  const decreaseCount = () => {
+    setCount(count - 1);
+  };
+
+  // Function to reset count
+  const resetCount = () => {
+    setCount(0);
+    setHistory([]);
+  };
+
+  // useEffect runs when count changes
+  useEffect(() => {
+    if (count > 0) {
+      setHistory((prev) => [...prev, count]);
+    }
+  }, [count]);
+
+  return (
+    <div >
+      <h2>Counter App with Function & useEffect</h2>
+      <h3>Count: {count}</h3>
+
+      <button onClick={increaseCount}>Increment</button>
+      <button onClick={decreaseCount} >Decrement</button>
+      <button onClick={resetCount} >Reset</button>
+
+      <h3>Table of Incremented Values</h3>
+      <table border="1" >
+        <thead>
+          <tr>
+            <th>Sr No.</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          {history.map((val, index) => (
+            <tr key={index}>
+              <td>{index + 1}</td>
+              <td>{val}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+export default CounterWithEffect
+
+6.-------------------------
+
+//Axios
+
+AXIOS DATA FETCH FROM DATA.TXT
+===========================================================
+
+
+
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+
+const GetData = () => {
+  const [data, setData] = useState("");
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    axios
+      .get("Data.txt")
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((err) => {
+        setError(err.message);
+      });
+  }, []);
+
+  if (error) return <div>Error: {error}</div>;
+
+  return (
+    <div>
+      <h1>Data from Text File</h1>
+      <pre>{data}</pre>
+    </div>
+  );
+};
+
+export default GetData;
+==============================================================
+AXIOS DATA FETCH FROM JSON file
+==============================================================
+
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+
+const GetData = () => {
+    const [data, setData] = useState([]);
+
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        // Make GET request to fetch data
+        axios
+            //.get("https://jsonplaceholder.typicode.com/posts")
+            .get("Data.txt")
+            .then((response) => {
+                setData(response.data);
+            })
+            .catch((err) => {
+                setError(err.message);
+
+            });
+    }, []);
+
+
+    if (error) return <div>Error: {error}</div>;
+
+    return (
+        <div>
+            <h1>Posts</h1>
+            <ul>
+                {data.map((post) => (
+                    <li key={post.id}>{post.title}</li>
+                ))}
+            </ul>
+        </div>
+    );
+};
+
+export default GetData;
+=====================================================================
+
+//PG,Graduation
+
+import { useState } from "react"
+import UG from "./ug"
+import PG from "./pg"
+import Grad from "./grad"
+export default function StudentInfo(){
+    const[name,setname]=useState("")
+    const[email,setemail]=useState("")
+    const[course,setcourse]=useState("")
+
+    return(
+         <>
+         <label>Name</label><br></br>
+         <input type="text"  onChange={e=>setname(e.target.value)}></input><br>
+         </br>
+         <label>Email</label><br></br>
+         <input type="text" onChange={e=>setemail(e.target.value)}></input>
+         <br></br>
+         <select onChange={e=>setcourse(e.target.value)}>
+                        <option value=""  > selected</option>
+            <option value="G" >Grad</option>
+            <option value="PG" >PG</option>
+            <option value="UG" >UG</option>
+         </select>
+         <br></br>
+        {course==="G"&&<Grad name={name} email={email}/>}
+        {course==="PG"&&<PG name={name} email={email}/>}
+        {course==="UG"&&<UG name={name} email={email}/>}
+         </>
+    )
+}
+
+-----------------------------------
+import { useState } from "react"
+
+export default function Grad({name,email}){
+    const[HSC,setHSC]=useState("")
+    const[SSC,setSSC]=useState("")
+    const[submit,setsubmit]=useState(false)
+    const handler=()=>{
+        setsubmit(true)
+    }
+
+
+    return(
+        <>
+        
+        <label>HSC</label><br></br>
+        <input type="text" onChange={e=>setHSC(e.target.value)}></input><br></br><br></br>
+        <label>SSC</label><br></br>
+        <input type="text" onChange={e=>setSSC(e.target.value)}></input><br></br><br></br>
+        <button onClick={handler}>Submit</button>
+        {
+            submit &&(
+               <>
+               <strong>Student Info</strong>
+        <p>Student Name:{name}</p>
+        <p>Student Email:{email}</p>
+        
+        <strong>Student Education Details</strong>
+        
+        <p>{HSC}</p>
+        <p>{SSC}</p></>
+            )
+        }
+        
+
+        </>
+    )
+}
+
+-------------------------------------------------
+
+//Login
+
+
+import React, { useState } from "react";
+
+function Login() {
+  // State for username and password
+  const [formData, setFormData] = useState({
+    username: "",
+    password: ""
+  });
+
+  // Handle input change
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  // Handle form submission
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("User Login Details:", formData);
+    alert(`Welcome, ${formData.username}!`);
+  };
+
+  return (
+    <div style={styles.container}>
+      <h2>Login Page</h2>
+      <form onSubmit={handleSubmit} style={styles.form}>
+        <div style={styles.inputGroup}>
+          <label>Username:</label>
+          <input
+            type="text"
+            name="username"
+            placeholder="Enter username"
+            value={formData.username}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div style={styles.inputGroup}>
+          <label>Password:</label>
+          <input
+            type="password"
+            name="password"
+            placeholder="Enter password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <button type="submit" style={styles.button}>
+          Login
+        </button>
+      </form>
+    </div>
+  );
+}
+
+
